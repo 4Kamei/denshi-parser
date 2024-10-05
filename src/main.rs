@@ -1,16 +1,17 @@
+pub mod matcher;
+
+use crate::matcher::{BreadcrumbsMatcher, MatchPattern};
+use clap::{Parser, Subcommand};
 use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
+use std::rc::Rc;
 use sv_parser::parse_sv_str;
 use sv_parser::NodeEvent;
+use sv_parser::RefNode;
 use toml::Table;
 
-pub mod matcher;
-use crate::matcher::{BreadcrumbsMatcher, MatchPattern};
-use clap::{Parser, Subcommand};
-use sv_parser::RefNode;
-
-/// Simple program to greet a person
+/// Parser for the associated nvim plugin for systemverilog syntax highlighting
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
@@ -21,20 +22,19 @@ struct Args {
     command: Command,
 }
 
-#[derive(Debug, Subcommand)]
+#[derive(Debug, Subcommand, PartialEq)]
 enum Command {
     Parse,
+    Debug,
     Find { regex: String },
 }
-
-struct FindArgs {}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
 
     match args.command {
-        Command::Parse => {
-            let result = parse_groups(&args.config, &args.code)?;
+        Command::Parse | Command::Debug => {
+            let _result = parse_groups(&args.config, &args.code, args.command == Command::Debug)?;
         }
         Command::Find { regex } => {
             find_regex(&args.code, &regex)?;
@@ -63,7 +63,7 @@ fn find_regex(code_path: &str, input_filter: &str) -> Result<(), Box<dyn std::er
             NodeEvent::Enter(ref node) => {
                 breadcrumbs.push(node.to_string());
             }
-            NodeEvent::Leave(ref node) => {
+            NodeEvent::Leave(ref _node) => {
                 breadcrumbs.pop();
             }
         };
@@ -89,7 +89,11 @@ fn find_regex(code_path: &str, input_filter: &str) -> Result<(), Box<dyn std::er
     Ok(())
 }
 
-fn parse_groups(toml_path: &str, code_path: &str) -> Result<(), Box<dyn std::error::Error>> {
+fn parse_groups(
+    toml_path: &str,
+    code_path: &str,
+    debug: bool,
+) -> Result<(), Box<dyn std::error::Error>> {
     let toml = &fs::read_to_string(toml_path)?.parse::<Table>()?;
 
     let mut map: HashMap<String, String> = HashMap::new();
@@ -109,10 +113,11 @@ fn parse_groups(toml_path: &str, code_path: &str) -> Result<(), Box<dyn std::err
         }
     }
 
-    let code = &fs::read_to_string(code_path)?;
+    let code = fs::read_to_string(code_path)?;
+    let code = Rc::new(code);
 
     let result = parse_sv_str(
-        code,
+        &code,
         PathBuf::from("test.sv"),
         &HashMap::new(),
         &Vec::<PathBuf>::new(),
@@ -125,13 +130,31 @@ fn parse_groups(toml_path: &str, code_path: &str) -> Result<(), Box<dyn std::err
     let mut matchers = vec![];
 
     for (filter, group) in map.iter() {
-        let filter_split = filter.split(".");
+        let filter_split = filter.split(" ");
         let cl_group = group.clone();
+        let inner_code = Rc::clone(&code);
         let cmd = move |locate: sv_parser::Locate| {
             let line = locate.line;
-            let col_start = locate.offset;
-            let col_end = locate.offset + locate.len;
-            println!("{} {line} {col_start} {col_end}", cl_group);
+            let mut col_start = locate.offset;
+            let mut col_end = locate.offset + locate.len;
+
+            let line_start_col = &inner_code[0..col_end].rfind("\n").unwrap_or_else(|| 0) + 1;
+            col_start = col_start - line_start_col;
+            col_end = col_end - line_start_col;
+
+            if debug {
+                println!(
+                    "{} {line} {col_start} {col_end}    \t: ({})",
+                    cl_group,
+                    locate.str(&inner_code)
+                );
+            } else {
+                println!(
+                    "{} {line} {col_start} {col_end} {}",
+                    cl_group,
+                    locate.str(&inner_code)
+                );
+            }
             false
         };
         let mut filter_match = vec![];
@@ -143,7 +166,7 @@ fn parse_groups(toml_path: &str, code_path: &str) -> Result<(), Box<dyn std::err
                 filter_match.push(MatchPattern::Matches(k));
             }
         }
-        let mut bc = BreadcrumbsMatcher::new(filter_match, Box::new(cmd));
+        let bc = BreadcrumbsMatcher::new(filter_match, Box::new(cmd));
         matchers.push(bc)
     }
     let mut breadcrumbs = vec![];

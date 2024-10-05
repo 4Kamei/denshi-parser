@@ -1,11 +1,4 @@
-use std::any::Any;
-use std::collections::HashMap;
-use std::fs;
-use std::path::PathBuf;
-use sv_parser::parse_sv_str;
-use sv_parser::NodeEvent;
 use sv_parser::RefNode;
-use toml::Table;
 
 #[derive(Clone, Debug)]
 pub enum MatchPattern<'a> {
@@ -13,19 +6,10 @@ pub enum MatchPattern<'a> {
     NotMatches(&'a str),
 }
 
-impl MatchPattern<'_> {
-    fn apply(&self, n: &str) -> bool {
-        match self {
-            MatchPattern::Matches(s) => *s == n,
-            MatchPattern::NotMatches(s) => !(*s == n),
-        }
-    }
-}
-
 pub struct BreadcrumbsMatcher<'a> {
     pattern: Vec<MatchPattern<'a>>,
     current_match: usize,
-    current_notmatch: u32,
+    current_notmatch: Option<usize>,
     callback: Box<dyn Fn(sv_parser::Locate) -> bool>,
 }
 
@@ -37,7 +21,7 @@ impl<'a> BreadcrumbsMatcher<'a> {
         Self {
             pattern: nodes.to_vec().clone(),
             current_match: 0,
-            current_notmatch: 0,
+            current_notmatch: None,
             callback,
         }
     }
@@ -52,7 +36,7 @@ impl<'a> BreadcrumbsMatcher<'a> {
                 if *s == node.to_string() {
                     self.current_match += 1;
                     //If we have matched the whole list
-                    if self.current_match == self.pattern.len() && self.current_notmatch == 0 {
+                    if self.current_match == self.pattern.len() && self.current_notmatch.is_none() {
                         if let RefNode::Locate(locate) = node {
                             (self.callback)(**locate);
                         }
@@ -67,14 +51,14 @@ impl<'a> BreadcrumbsMatcher<'a> {
                         self.enter(node);
                         return;
                     } else {
-                        if self.current_notmatch == 0 {
+                        if self.current_notmatch.is_none() {
                             if let RefNode::Locate(locate) = node {
                                 (self.callback)(**locate);
                             }
                         }
                     }
                 } else {
-                    self.current_notmatch += 1;
+                    self.current_notmatch.get_or_insert(self.current_match);
                 }
             }
         }
@@ -84,6 +68,11 @@ impl<'a> BreadcrumbsMatcher<'a> {
     pub fn leave(&mut self, node: &RefNode) {
         if self.current_match == 0 {
             return;
+        }
+        if let Some(n) = self.current_notmatch {
+            if n >= self.current_match {
+                self.current_notmatch = None
+            }
         }
         let previous_index = (self.current_match - 1) as usize;
         let current_pattern = self.pattern.get(previous_index).unwrap();
@@ -106,8 +95,6 @@ impl<'a> BreadcrumbsMatcher<'a> {
                         self.leave(node);
                         return;
                     }
-                } else {
-                    self.current_notmatch -= 1;
                 }
             }
         }
@@ -115,6 +102,6 @@ impl<'a> BreadcrumbsMatcher<'a> {
     }
 
     pub fn matches(&self) -> bool {
-        return self.current_match == self.pattern.len() && self.current_notmatch == 0;
+        return self.current_match == self.pattern.len() && self.current_notmatch.is_none();
     }
 }

@@ -1,4 +1,8 @@
-["ParameterDeclaration.Identifier.^WhiteSpace.Locate"]
-group = "parameter"
+#Matcthes can be inverted with ^ in front of the identifier
+["ParameterIdentifier ^WhiteSpace Locate"]
+group = "denshiParameter"
+
+["DataType Keyword ^WhiteSpace Locate"]
+group = "denshiKeyword"
 
 
