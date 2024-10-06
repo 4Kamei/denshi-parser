@@ -1,0 +1,3533 @@
+   Compiling denshi-parser v0.1.0 (/home/kamei/projects/rust_projects/denshi-parser)
+warning: unused import: `std::any::Any`
+ --> src/main.rs:1:5
+  |
+1 | use std::any::Any;
+  |     ^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: method `apply` is never used
+  --> src/main.rs:16:8
+   |
+15 | impl MatchPattern<'_> {
+   | --------------------- method in this implementation
+16 |     fn apply(&self, n: &str) -> bool {
+   |        ^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: field `strict` is never read
+  --> src/main.rs:29:5
+   |
+25 | struct BreadcrumbsMatcher<'a> {
+   |        ------------------ field in this struct
+...
+29 |     strict: bool,
+   |     ^^^^^^
+   |
+   = note: `BreadcrumbsMatcher` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: `denshi-parser` (bin "denshi-parser") generated 3 warnings (run `cargo fix --bin "denshi-parser"` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.64s
+     Running `target/debug/denshi-parser`
+ENTER INPUT SourceText
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input SourceText
+ENTER INPUT Description
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Description
+ENTER INPUT ModuleDeclaration
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ModuleDeclaration
+ENTER INPUT ModuleDeclarationAnsi
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ModuleDeclarationAnsi
+ENTER INPUT ModuleAnsiHeader
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ModuleAnsiHeader
+ENTER INPUT ModuleKeyword
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ModuleKeyword
+ENTER INPUT Keyword
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Keyword
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT Keyword
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT ModuleKeyword
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT ModuleIdentifier
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ModuleIdentifier
+ENTER INPUT Identifier
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Identifier
+ENTER INPUT SimpleIdentifier
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input SimpleIdentifier
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT SimpleIdentifier
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT Identifier
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT ModuleIdentifier
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT ParameterPortList
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ParameterPortList
+ENTER INPUT ParameterPortListDeclaration
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ParameterPortListDeclaration
+ENTER INPUT Symbol
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Symbol
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT Symbol
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT Symbol
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Symbol
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT Symbol
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT ParameterPortDeclaration
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ParameterPortDeclaration
+ENTER INPUT ParameterDeclaration
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ParameterDeclaration
+ENTER INPUT ParameterDeclarationParam
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT Keyword
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Keyword
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT Keyword
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT DataTypeOrImplicit
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input DataTypeOrImplicit
+ENTER INPUT DataType
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input DataType
+ENTER INPUT DataTypeAtom
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input DataTypeAtom
+ENTER INPUT IntegerAtomType
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input IntegerAtomType
+ENTER INPUT Keyword
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Keyword
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT Keyword
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT IntegerAtomType
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT DataTypeAtom
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT DataType
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT DataTypeOrImplicit
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT ListOfParamAssignments
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ListOfParamAssignments
+ENTER INPUT ParamAssignment
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ParamAssignment
+ENTER INPUT ParameterIdentifier
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input ParameterIdentifier
+ENTER INPUT Identifier
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT SimpleIdentifier
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 2,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT SimpleIdentifier
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 3,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input SimpleIdentifier
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 3,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 4,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 3,
+    current_notmatch: 0,
+    strict: false,
+}
+LEAVE NOT MATCHES WhiteSpace Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 2,
+    current_notmatch: 0,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 2,
+    current_notmatch: 0,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 2,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 3,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 4,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 3,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE NOT MATCHES WhiteSpace Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 2,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 2,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT SimpleIdentifier
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 2,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Identifier
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 2,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Identifier
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ParameterIdentifier
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT Symbol
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Symbol
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Symbol
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT ConstantParamExpression
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input ConstantParamExpression
+ENTER INPUT ConstantMintypmaxExpression
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input ConstantMintypmaxExpression
+ENTER INPUT ConstantExpression
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input ConstantExpression
+ENTER INPUT ConstantPrimary
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input ConstantPrimary
+ENTER INPUT PrimaryLiteral
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input PrimaryLiteral
+ENTER INPUT Number
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Number
+ENTER INPUT IntegralNumber
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input IntegralNumber
+ENTER INPUT DecimalNumber
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input DecimalNumber
+ENTER INPUT UnsignedNumber
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input UnsignedNumber
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT UnsignedNumber
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT DecimalNumber
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT IntegralNumber
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Number
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT PrimaryLiteral
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ConstantPrimary
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ConstantExpression
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ConstantMintypmaxExpression
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ConstantParamExpression
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ParamAssignment
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ListOfParamAssignments
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ParameterDeclarationParam
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 1,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ParameterDeclaration
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ParameterPortDeclaration
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT Symbol
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Symbol
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Symbol
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ParameterPortListDeclaration
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ParameterPortList
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT ListOfPortDeclarations
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input ListOfPortDeclarations
+ENTER INPUT Symbol
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Symbol
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Symbol
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT Symbol
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Symbol
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Symbol
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ListOfPortDeclarations
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT Symbol
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Symbol
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Symbol
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ModuleAnsiHeader
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT Keyword
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Keyword
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+ENTER INPUT WhiteSpace
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input WhiteSpace
+ENTER INPUT Locate
+[src/main.rs:43:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+Failed with input Locate
+LEAVE INPUT Locate
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT WhiteSpace
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Keyword
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ModuleDeclarationAnsi
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT ModuleDeclaration
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT Description
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}
+LEAVE INPUT SourceText
+[src/main.rs:76:9] &self = BreadcrumbsMatcher {
+    pattern: [
+        Matches(
+            "ParameterDeclarationParam",
+        ),
+        Matches(
+            "Identifier",
+        ),
+        NotMatches(
+            "WhiteSpace",
+        ),
+        Matches(
+            "Locate",
+        ),
+    ],
+    current_match: 0,
+    current_notmatch: 1,
+    strict: false,
+}

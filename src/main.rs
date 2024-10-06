@@ -43,6 +43,28 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
+fn index_to_line_col(s: &str, index: usize) -> Option<(usize, usize)> {
+    if index >= s.len() {
+        return None; // Index is out of bounds
+    }
+
+    let mut line = 0;
+    let mut char_count = 0;
+
+    for line_content in s.lines() {
+        let line_length = line_content.len();
+
+        // Check if the index is within the current line
+        if char_count + line_length >= index {
+            return Some((line + 1, index - char_count + 1)); // 1-based indexing
+        }
+
+        char_count += line_length + 1; // +1 for the newline character
+        line += 1;
+    }
+
+    None // This should not be reached due to the initial bounds check
+}
 
 fn find_regex(code_path: &str, input_filter: &str) -> Result<(), Box<dyn std::error::Error>> {
     let code = &fs::read_to_string(code_path)?;
@@ -125,22 +147,26 @@ fn parse_groups(
         false,
     );
 
-    //et map = Box::leak(Box::new(map));
-
     let mut matchers = vec![];
 
     for (filter, group) in map.iter() {
         let filter_split = filter.split(" ");
         let cl_group = group.clone();
         let inner_code = Rc::clone(&code);
-        let cmd = move |locate: sv_parser::Locate| {
+        let cmd = move |locate: &sv_parser::Locate| {
             let line = locate.line;
-            let mut col_start = locate.offset;
-            let mut col_end = locate.offset + locate.len;
+            let col_start = locate.offset;
+            let col_end = locate.offset + locate.len;
 
-            let line_start_col = &inner_code[0..col_end].rfind("\n").unwrap_or_else(|| 0) + 1;
-            col_start = col_start - line_start_col;
-            col_end = col_end - line_start_col;
+            let (line_start, col_start) = index_to_line_col(&inner_code, col_start)
+                .expect("Starting column should be within code");
+            let (line_end, col_end) = index_to_line_col(&inner_code, col_end)
+                .expect("Ending column should be within code");
+
+            assert!(
+                line_start == line_end,
+                "Starting and ending line should be the same"
+            );
 
             if debug {
                 println!(
@@ -154,16 +180,15 @@ fn parse_groups(
                     cl_group,
                     locate.str(&inner_code)
                 );
-            }
-            false
+            };
         };
         let mut filter_match = vec![];
         for k in filter_split.into_iter() {
             let first_char = &k[0..1]; //.expect("Syntax identifier should be longer than 0");
             if first_char == "^" {
-                filter_match.push(MatchPattern::NotMatches(&k[1..]));
+                filter_match.push(MatchPattern::NotMatches(k[1..].into()));
             } else {
-                filter_match.push(MatchPattern::Matches(k));
+                filter_match.push(MatchPattern::Matches(k.into()));
             }
         }
         let bc = BreadcrumbsMatcher::new(filter_match, Box::new(cmd));
@@ -171,24 +196,74 @@ fn parse_groups(
     }
     let mut breadcrumbs = vec![];
 
-    if let Ok((tree, _)) = result {
-        for node_event in tree.into_iter().event() {
-            match node_event {
-                NodeEvent::Enter(ref node) => {
-                    breadcrumbs.push(node.to_string());
-                    for m in &mut matchers {
-                        m.enter(node);
-                    }
+    let (tree, _) = result?;
+
+    for node_event in tree.into_iter().event() {
+        match node_event {
+            NodeEvent::Enter(ref node) => {
+                breadcrumbs.push(node.to_string());
+                for m in &mut matchers {
+                    m.enter(node);
                 }
-                NodeEvent::Leave(ref node) => {
-                    breadcrumbs.pop();
-                    for m in &mut matchers {
-                        m.leave(node);
-                    }
+            }
+            NodeEvent::Leave(ref node) => {
+                breadcrumbs.pop();
+                for m in &mut matchers {
+                    m.leave(node);
                 }
-            };
-        }
+            }
+        };
+
+        //println!(
+        //   "",
+        //    breadcrumbs
+        //        .iter()
+        //        .map(|x| x.into())
+        //        .collect::<Vec<String>>()
+        //        .join(" ")
+        //);
     }
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    enum Event<'a> {
+        Enter(&'a str),
+        Leave(&'a str),
+    }
+
+    #[test]
+    fn matcher_respects_not_equal() {
+        let stim: Vec<(bool, Event)> = vec![
+            (false, Event::Enter("Base")),
+            (false, Event::Enter("NextLevel")),
+            (false, Event::Enter("DisallowedLevel")),
+            (false, Event::Enter("Something")),
+            (false, Event::Leave("Something")),
+            (false, Event::Leave("DisallowedLevel")),
+        ];
+
+        let pattern = vec![
+            MatchPattern::Matches("Base"),
+            MatchPattern::NotMatches("DisallowedLevel"),
+            MatchPattern::Matches("Something"),
+        ];
+
+        let mut bc = BreadcrumbsMatcher::new(pattern, Box::new(|_| {}));
+
+        for (matches, event) in stim {
+            match event {
+                Event::Enter(e) => bc.enter(&e),
+                Event::Leave(e) => bc.leave(&e),
+            }
+            assert!(
+                bc.matches() == matches,
+                "Incorrectly computed matched/mismatch"
+            );
+        }
+    }
 }

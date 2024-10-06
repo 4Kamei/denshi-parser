@@ -6,18 +6,35 @@ pub enum MatchPattern<'a> {
     NotMatches(&'a str),
 }
 
+pub trait TryIntoLocate {
+    fn try_into_locate(&self) -> Option<&sv_parser::Locate>;
+}
+
+impl TryIntoLocate for RefNode<'_> {
+    fn try_into_locate(&self) -> Option<&sv_parser::Locate> {
+        if let RefNode::Locate(locate) = self {
+            Some(locate)
+        } else {
+            None
+        }
+    }
+}
+
+impl TryIntoLocate for &str {
+    fn try_into_locate(&self) -> Option<&sv_parser::Locate> {
+        None
+    }
+}
+
 pub struct BreadcrumbsMatcher<'a> {
     pattern: Vec<MatchPattern<'a>>,
     current_match: usize,
     current_notmatch: Option<usize>,
-    callback: Box<dyn Fn(sv_parser::Locate) -> bool>,
+    callback: Box<dyn Fn(&sv_parser::Locate)>,
 }
 
 impl<'a> BreadcrumbsMatcher<'a> {
-    pub fn new(
-        nodes: Vec<MatchPattern<'a>>,
-        callback: Box<dyn Fn(sv_parser::Locate) -> bool>,
-    ) -> Self {
+    pub fn new(nodes: Vec<MatchPattern<'a>>, callback: Box<dyn Fn(&sv_parser::Locate)>) -> Self {
         Self {
             pattern: nodes.to_vec().clone(),
             current_match: 0,
@@ -25,7 +42,20 @@ impl<'a> BreadcrumbsMatcher<'a> {
             callback,
         }
     }
-    pub fn enter(&mut self, node: &RefNode) {
+    pub fn enter<T>(&mut self, node: &T)
+    where
+        T: TryIntoLocate + ToString,
+    {
+        #[cfg(test)]
+        {
+            println!(
+                "{:?}, {}, {:?}, {}",
+                self.pattern,
+                self.current_match,
+                self.current_notmatch,
+                node.to_string()
+            );
+        }
         //We are already matching. Only call the callback if we're not 'strict'w
         if self.current_match == self.pattern.len() {
             return;
@@ -37,8 +67,8 @@ impl<'a> BreadcrumbsMatcher<'a> {
                     self.current_match += 1;
                     //If we have matched the whole list
                     if self.current_match == self.pattern.len() && self.current_notmatch.is_none() {
-                        if let RefNode::Locate(locate) = node {
-                            (self.callback)(**locate);
+                        if let Some(locate) = node.try_into_locate() {
+                            (self.callback)(&locate);
                         }
                     }
                 }
@@ -52,8 +82,8 @@ impl<'a> BreadcrumbsMatcher<'a> {
                         return;
                     } else {
                         if self.current_notmatch.is_none() {
-                            if let RefNode::Locate(locate) = node {
-                                (self.callback)(**locate);
+                            if let Some(locate) = node.try_into_locate() {
+                                (self.callback)(&locate);
                             }
                         }
                     }
@@ -65,7 +95,10 @@ impl<'a> BreadcrumbsMatcher<'a> {
         return;
     }
 
-    pub fn leave(&mut self, node: &RefNode) {
+    pub fn leave<T>(&mut self, node: &T)
+    where
+        T: ToString,
+    {
         if self.current_match == 0 {
             return;
         }

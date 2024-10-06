@@ -1,4 +1,8 @@
 #Matcthes can be inverted with ^ in front of the identifier
+
+["^WhiteSpace Locate"]
+group = "all"
+
 ["ParameterIdentifier ^WhiteSpace Locate"]
 group = "denshiParameter"
 
