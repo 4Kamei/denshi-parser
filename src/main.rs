@@ -1,15 +1,23 @@
 pub mod matcher;
+pub mod syntax_matcher;
 
-use crate::matcher::{BreadcrumbsMatcher, MatchPattern};
+use crate::syntax_matcher::SyntaxMatcher;
+
 use clap::{Parser, Subcommand};
 use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
 use std::rc::Rc;
+
 use sv_parser::parse_sv_str;
 use sv_parser::NodeEvent;
 use sv_parser::RefNode;
+
 use toml::Table;
+
+use anyhow::Result;
+
+use ansi_term::Colour;
 
 /// Parser for the associated nvim plugin for systemverilog syntax highlighting
 #[derive(Parser, Debug)]
@@ -29,7 +37,7 @@ enum Command {
     Find { regex: String },
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<()> {
     let args = Args::parse();
 
     match args.command {
@@ -43,30 +51,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-fn index_to_line_col(s: &str, index: usize) -> Option<(usize, usize)> {
-    if index >= s.len() {
-        return None; // Index is out of bounds
-    }
 
-    let mut line = 0;
-    let mut char_count = 0;
-
-    for line_content in s.lines() {
-        let line_length = line_content.len();
-
-        // Check if the index is within the current line
-        if char_count + line_length >= index {
-            return Some((line + 1, index - char_count + 1)); // 1-based indexing
-        }
-
-        char_count += line_length + 1; // +1 for the newline character
-        line += 1;
-    }
-
-    None // This should not be reached due to the initial bounds check
-}
-
-fn find_regex(code_path: &str, input_filter: &str) -> Result<(), Box<dyn std::error::Error>> {
+fn find_regex(code_path: &str, input_filter: &str) -> Result<()> {
     let code = &fs::read_to_string(code_path)?;
 
     let (tree, _) = parse_sv_str(
@@ -111,30 +97,7 @@ fn find_regex(code_path: &str, input_filter: &str) -> Result<(), Box<dyn std::er
     Ok(())
 }
 
-fn parse_groups(
-    toml_path: &str,
-    code_path: &str,
-    debug: bool,
-) -> Result<(), Box<dyn std::error::Error>> {
-    let toml = &fs::read_to_string(toml_path)?.parse::<Table>()?;
-
-    let mut map: HashMap<String, String> = HashMap::new();
-
-    for (name, value) in toml.iter() {
-        match value {
-            toml::Value::Table(inner) => {
-                for (i_name, i_value) in inner.iter() {
-                    if let toml::Value::String(param_value) = i_value {
-                        if i_name == "group" {
-                            map.insert(name.to_string(), param_value.to_string());
-                        }
-                    }
-                }
-            }
-            other => println!("Unparsed {:?}", other),
-        }
-    }
-
+fn parse_groups(toml_path: &str, code_path: &str, debug: bool) -> Result<()> {
     let code = fs::read_to_string(code_path)?;
     let code = Rc::new(code);
 
@@ -147,53 +110,9 @@ fn parse_groups(
         false,
     );
 
-    let mut matchers = vec![];
+    let parsed_toml = &fs::read_to_string(toml_path)?.parse::<Table>()?;
+    let mut matcher = SyntaxMatcher::from_toml(parsed_toml)?;
 
-    for (filter, group) in map.iter() {
-        let filter_split = filter.split(" ");
-        let cl_group = group.clone();
-        let inner_code = Rc::clone(&code);
-        let cmd = move |locate: &sv_parser::Locate| {
-            let line = locate.line;
-            let col_start = locate.offset;
-            let col_end = locate.offset + locate.len;
-
-            let (line_start, col_start) = index_to_line_col(&inner_code, col_start)
-                .expect("Starting column should be within code");
-            let (line_end, col_end) = index_to_line_col(&inner_code, col_end)
-                .expect("Ending column should be within code");
-
-            assert!(
-                line_start == line_end,
-                "Starting and ending line should be the same"
-            );
-
-            if debug {
-                println!(
-                    "{} {line} {col_start} {col_end}    \t: ({})",
-                    cl_group,
-                    locate.str(&inner_code)
-                );
-            } else {
-                println!(
-                    "{} {line} {col_start} {col_end} {}",
-                    cl_group,
-                    locate.str(&inner_code)
-                );
-            };
-        };
-        let mut filter_match = vec![];
-        for k in filter_split.into_iter() {
-            let first_char = &k[0..1]; //.expect("Syntax identifier should be longer than 0");
-            if first_char == "^" {
-                filter_match.push(MatchPattern::NotMatches(k[1..].into()));
-            } else {
-                filter_match.push(MatchPattern::Matches(k.into()));
-            }
-        }
-        let bc = BreadcrumbsMatcher::new(filter_match, Box::new(cmd));
-        matchers.push(bc)
-    }
     let mut breadcrumbs = vec![];
 
     let (tree, _) = result?;
@@ -202,68 +121,64 @@ fn parse_groups(
         match node_event {
             NodeEvent::Enter(ref node) => {
                 breadcrumbs.push(node.to_string());
-                for m in &mut matchers {
-                    m.enter(node);
-                }
+                matcher.enter(node);
             }
             NodeEvent::Leave(ref node) => {
                 breadcrumbs.pop();
-                for m in &mut matchers {
-                    m.leave(node);
-                }
+                matcher.leave(node);
             }
         };
-
-        //println!(
-        //   "",
-        //    breadcrumbs
-        //        .iter()
-        //        .map(|x| x.into())
-        //        .collect::<Vec<String>>()
-        //        .join(" ")
-        //);
     }
 
+    let group_colors = matcher.get_colors_as_ansi()?;
+
+    for (group, c) in &group_colors {
+        println!("Group: {}{}{}", c, group, "\x1b[0m");
+    }
+
+    let mut output_groups = matcher.compute(&code);
+    if !debug {
+        //Print the groups as input to the vim plugin
+        print!(
+            "{}",
+            output_groups
+                .iter()
+                .map(|item| {
+                    format!(
+                        "{} {} {} {} {}",
+                        item.group, item.line, item.col_start, item.col_end, item.matched
+                    )
+                })
+                .collect::<Vec<_>>()
+                .join("\n")
+        );
+    } else {
+        let mut lines = code
+            .split("\n")
+            .map(|x| x.to_string())
+            .collect::<Vec<String>>();
+        output_groups.sort_by(|a, b| usize::cmp(&b.col_start, &a.col_start));
+        output_groups.sort_by(|a, b| usize::cmp(&b.line, &a.line));
+        for item in output_groups {
+            lines
+                .get_mut(item.line - 1)
+                .context(format!("Could not get line for item {:?}", item))?
+                .replace_range(
+                    item.col_start..item.col_end,
+                    format!(
+                        "{}{}{}",
+                        group_colors
+                            .get(item.group)
+                            .context(format!("Could not find color for group {}", item.group))?,
+                        item.matched,
+                        "\x1b[0m"
+                    )
+                    .as_ref(),
+                );
+        }
+        println!("{}", lines.join("\n"));
+    }
     Ok(())
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    enum Event<'a> {
-        Enter(&'a str),
-        Leave(&'a str),
-    }
-
-    #[test]
-    fn matcher_respects_not_equal() {
-        let stim: Vec<(bool, Event)> = vec![
-            (false, Event::Enter("Base")),
-            (false, Event::Enter("NextLevel")),
-            (false, Event::Enter("DisallowedLevel")),
-            (false, Event::Enter("Something")),
-            (false, Event::Leave("Something")),
-            (false, Event::Leave("DisallowedLevel")),
-        ];
-
-        let pattern = vec![
-            MatchPattern::Matches("Base"),
-            MatchPattern::NotMatches("DisallowedLevel"),
-            MatchPattern::Matches("Something"),
-        ];
-
-        let mut bc = BreadcrumbsMatcher::new(pattern, Box::new(|_| {}));
-
-        for (matches, event) in stim {
-            match event {
-                Event::Enter(e) => bc.enter(&e),
-                Event::Leave(e) => bc.leave(&e),
-            }
-            assert!(
-                bc.matches() == matches,
-                "Incorrectly computed matched/mismatch"
-            );
-        }
-    }
-}
+use anyhow::Context;
