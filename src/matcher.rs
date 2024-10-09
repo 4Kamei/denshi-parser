@@ -64,6 +64,7 @@ impl<'a> BreadcrumbsMatcher<'a> {
         while let Some(MatchPattern::NotMatches(patt)) = self.pattern.get(local_match_counter) {
             if *patt == node_tostring {
                 self.current_notmatch.push(local_match_counter);
+                self.current_match = local_match_counter + 1;
             }
             local_match_counter += 1;
         }

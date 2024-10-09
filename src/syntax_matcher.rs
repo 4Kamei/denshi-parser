@@ -15,7 +15,7 @@ use anyhow::Context;
 use std::cell::RefCell;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-enum SyntaxItemType<'a> {
+pub enum SyntaxItemType<'a> {
     Always,
     //The group to check with, to see if the text we matched is also defined there
     IfDefined(&'a str),
@@ -23,11 +23,11 @@ enum SyntaxItemType<'a> {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
-struct SyntaxItem<'a> {
-    group: &'a str,
-    col_start: usize, //  Treating the whole code as 1 line
-    col_end: usize,   //  Treating the whole code as 1 line
-    syntax_type: SyntaxItemType<'a>,
+pub struct SyntaxItem<'a> {
+    pub group: &'a str,
+    pub col_start: usize, //  Treating the whole code as 1 line
+    pub col_end: usize,   //  Treating the whole code as 1 line
+    pub syntax_type: SyntaxItemType<'a>,
 }
 
 #[derive(Debug)]
@@ -40,54 +40,62 @@ pub struct MatchedSyntaxItem<'a> {
 }
 
 impl<'a> MatchedSyntaxItem<'a> {
-    fn from_unmatched(item: SyntaxItem<'a>, code: &'a str) -> Self {
-        let (line_start, col_start) = MatchedSyntaxItem::index_to_line_col(code, item.col_start)
-            .expect("Code contains start line");
-        let (mut line_end, mut col_end) = MatchedSyntaxItem::index_to_line_col(code, item.col_end)
-            .expect("Code contains end line");
-
-        let matched = &code[item.col_start..item.col_end];
-
-        if col_end == 0 && line_end == line_start + 1 {
-            line_end = line_start;
-            col_end = col_start + matched.len() - 1;
-        }
+    fn from_unmatched(item: SyntaxItem<'a>, code: &'a str) -> Vec<Self> {
+        let line_vec =
+            MatchedSyntaxItem::range_to_lines_cols(item.col_start, item.col_end - 1, &code);
 
         assert!(
-            line_start == line_end,
-            "Matches over multiple lines are not handled {item:?} produced \"{matched}\". Postion: ({col_start}, {line_start}) -> ({col_end}, {line_end})"
+            line_vec.len() > 0,
+            "Must return more lines than 0? {}, {}",
+            item.col_start,
+            item.col_end
         );
 
-        Self {
-            group: item.group,
-            matched,
-            col_start,
-            col_end,
-            line: line_start,
+        let mut out = vec![];
+
+        for (line_number, col_start, col_end) in line_vec {
+            let matched = &code.lines().nth(line_number).unwrap()[col_start..col_end];
+
+            out.push(Self {
+                group: item.group,
+                matched,
+                col_start,
+                col_end,
+                line: line_number + 1,
+            });
         }
+        return out;
     }
 
-    fn index_to_line_col(s: &str, index: usize) -> Option<(usize, usize)> {
-        if index >= s.len() {
-            return None; // Index is out of bounds
-        }
-
-        let mut line = 0;
+    fn range_to_lines_cols(
+        start_col: usize,
+        end_col: usize,
+        code: &str,
+    ) -> Vec<(usize, usize, usize)> {
+        let mut output: Vec<(usize, usize, usize)> = vec![];
+        let mut found_start = false;
         let mut char_count = 0;
-
-        for line_content in s.lines() {
-            let line_length = line_content.len();
-
-            // Check if the index is within the current line
-            if char_count + line_length >= index {
-                return Some((line + 1, index - char_count)); // 1-based indexing
+        for (index, line) in code.lines().enumerate() {
+            let line_len = line.len();
+            if !found_start {
+                if line_len + char_count > end_col {
+                    return vec![(index, start_col - char_count, end_col + 1 - char_count)];
+                }
+                if line_len + char_count > start_col {
+                    found_start = true;
+                    output.push((index, start_col - char_count, line_len));
+                }
+            } else {
+                if line_len + char_count > end_col {
+                    output.push((index, 0, end_col + 1 - char_count));
+                    return output;
+                } else {
+                    output.push((index, 0, line_len));
+                }
             }
-
-            char_count += line_length + 1; // +1 for the newline character
-            line += 1;
+            char_count += line_len + 1;
         }
-
-        None
+        return output;
     }
 }
 
@@ -206,6 +214,10 @@ impl<'a> SyntaxMatcher<'a> {
         })
     }
 
+    pub fn get_colors(&self) -> HashMap<&str, &str> {
+        return self.colors.clone();
+    }
+
     pub fn get_colors_as_ansi(&self) -> anyhow::Result<HashMap<String, String>> {
         let mut output = HashMap::new();
 
@@ -221,28 +233,11 @@ impl<'a> SyntaxMatcher<'a> {
                     "Expected group {group}, command {command} to contain an '='"
                 ))?;
                 match cmd {
-                    "ctermfg" => codes.push(
-                        match value {
-                            "0" => "30",
-                            "1" => "31",
-                            "2" => "32",
-                            "3" => "33",
-                            "4" => "34",
-                            "5" => "35",
-                            "6" => "36",
-                            "7" => "37",
-                            "8" => "90",
-                            "9" => "91",
-                            "10" => "92",
-                            "11" => "93",
-                            "12" => "94",
-                            "13" => "95",
-                            "14" => "96",
-                            "15" => "97",
-                            patt => bail!("Unknown pattern {patt}"),
-                        }
-                        .to_string(),
-                    ),
+                    "ctermfg" => {
+                        codes.push("38".to_string());
+                        codes.push("5".to_string());
+                        codes.push(value.to_string());
+                    }
                     "cterm" => codes.push(
                         value
                             .split(",")
@@ -257,6 +252,7 @@ impl<'a> SyntaxMatcher<'a> {
                             .collect::<Result<Vec<_>, _>>()?
                             .join(";"),
                     ),
+                    "guifg" => (),
                     patt => bail!("Unknown command {patt}"),
                 }
             }
@@ -300,7 +296,7 @@ impl<'a> SyntaxMatcher<'a> {
                     .entry(item.group)
                     .or_insert(HashSet::new())
                     .insert(matched);
-                output_str.push(MatchedSyntaxItem::from_unmatched(item, code));
+                output_str.append(&mut MatchedSyntaxItem::from_unmatched(item, code));
             } else {
                 requiring_defs.push(item);
             }
@@ -314,7 +310,7 @@ impl<'a> SyntaxMatcher<'a> {
                         .get(predicate_group)
                         .map_or(false, |x| x.contains(matched_str))
                     {
-                        output_str.push(MatchedSyntaxItem::from_unmatched(item, code))
+                        output_str.append(&mut MatchedSyntaxItem::from_unmatched(item, code))
                     }
                 }
                 SyntaxItemType::IfDefinedElse(predicate_group, other_group) => {
@@ -325,7 +321,7 @@ impl<'a> SyntaxMatcher<'a> {
                         item.group = other_group
                     }
 
-                    output_str.push(MatchedSyntaxItem::from_unmatched(item, code))
+                    output_str.append(&mut MatchedSyntaxItem::from_unmatched(item, code))
                 }
                 SyntaxItemType::Always => unreachable!(),
             }

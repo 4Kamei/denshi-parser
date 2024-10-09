@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+ansi_term = "0.12.1"
+anyhow = "1.0.89"
 clap = { version = "4.5.19", features = ["derive"] }
+itertools = "0.13.0"
 sv-parser = "0.13.3"
 toml = "0.8.19"

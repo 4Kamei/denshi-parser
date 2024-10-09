@@ -2,6 +2,7 @@ pub mod matcher;
 pub mod syntax_matcher;
 
 use crate::syntax_matcher::SyntaxMatcher;
+use crate::syntax_matcher::{SyntaxItem, SyntaxItemType};
 
 use clap::{Parser, Subcommand};
 use std::collections::HashMap;
@@ -34,6 +35,7 @@ struct Args {
 enum Command {
     Parse,
     Debug,
+    Colors,
     Find { regex: String },
 }
 
@@ -47,6 +49,9 @@ fn main() -> Result<()> {
         Command::Find { regex } => {
             find_regex(&args.code, &regex)?;
         }
+        Command::Colors {} => {
+            let _result = print_colors(&args.config)?;
+        }
     }
 
     Ok(())
@@ -57,7 +62,7 @@ fn find_regex(code_path: &str, input_filter: &str) -> Result<()> {
 
     let (tree, _) = parse_sv_str(
         code,
-        PathBuf::from("test.sv"),
+        PathBuf::from(code_path),
         &HashMap::new(),
         &Vec::<PathBuf>::new(),
         false,
@@ -97,13 +102,57 @@ fn find_regex(code_path: &str, input_filter: &str) -> Result<()> {
     Ok(())
 }
 
+fn print_colors(toml_path: &str) -> Result<()> {
+    //TODO would be good to separate out some of this, so that we don't need to create an entire
+    //SyntaxMatcher just to print the colors
+
+    let parsed_toml = &fs::read_to_string(toml_path)?.parse::<Table>()?;
+    let mut matcher = SyntaxMatcher::from_toml(parsed_toml)?;
+
+    for (color, string) in matcher.get_colors() {
+        println!("{} {}", color, string);
+    }
+
+    Ok(())
+}
+
 fn parse_groups(toml_path: &str, code_path: &str, debug: bool) -> Result<()> {
-    let code = fs::read_to_string(code_path)?;
+    let mut code = fs::read_to_string(code_path)?;
+
+    let mut backtick_indices = vec![];
+    for (p, _) in code.char_indices().rev().filter(|(_, c)| c == &'`') {
+        backtick_indices.push(p);
+    }
+
+    let mut compiler_directives = vec![];
+    for p in backtick_indices {
+        let line_end = code
+            .char_indices()
+            .skip(p)
+            .take_while(|(_, c)| c != &'\n')
+            .map(|(p, _)| p)
+            .last()
+            .unwrap_or(code.len() - 1);
+
+        code.replace_range(p..line_end + 1, "");
+        compiler_directives.push(SyntaxItem {
+            group: "denshiCompilerDirective",
+            col_start: p,
+            col_end: line_end + 1,
+            syntax_type: SyntaxItemType::Always,
+        });
+    }
+
+    //Vivado, for example, uses (*  ...     *)  logic param_name; as a way to declare parameters on
+    //nets. Treat these as comments. This is not ideal.
+    code = code.replace("(*", "/*");
+    code = code.replace("*)", "*/");
+
     let code = Rc::new(code);
 
     let result = parse_sv_str(
         &code,
-        PathBuf::from("test.sv"),
+        PathBuf::from(code_path),
         &HashMap::new(),
         &Vec::<PathBuf>::new(),
         false,
@@ -132,10 +181,6 @@ fn parse_groups(toml_path: &str, code_path: &str, debug: bool) -> Result<()> {
 
     let group_colors = matcher.get_colors_as_ansi()?;
 
-    for (group, c) in &group_colors {
-        println!("Group: {}{}{}", c, group, "\x1b[0m");
-    }
-
     let mut output_groups = matcher.compute(&code);
     if !debug {
         //Print the groups as input to the vim plugin
@@ -153,12 +198,17 @@ fn parse_groups(toml_path: &str, code_path: &str, debug: bool) -> Result<()> {
                 .join("\n")
         );
     } else {
+        for (group, c) in &group_colors {
+            println!("Group: {}{}{}", c, group, "\x1b[0m");
+        }
+
         let mut lines = code
             .split("\n")
             .map(|x| x.to_string())
             .collect::<Vec<String>>();
         output_groups.sort_by(|a, b| usize::cmp(&b.col_start, &a.col_start));
         output_groups.sort_by(|a, b| usize::cmp(&b.line, &a.line));
+        dbg!(&output_groups);
         for item in output_groups {
             lines
                 .get_mut(item.line - 1)

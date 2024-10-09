@@ -1,12 +1,125 @@
 #Matcthes can be inverted with ^ in front of the identifier
 
-["^WhiteSpace Locate"]
-group = "all"
 
-["ParameterIdentifier ^WhiteSpace Locate"]
-group = "denshiParameter"
+[colors]
+denshiComment = "ctermfg=8 cterm=italic"
 
-["DataType Keyword ^WhiteSpace Locate"]
-group = "denshiKeyword"
+denshiVariableDefinition = "ctermfg=6"  
 
+denshiParameterDefinition    = "ctermfg=6 cterm=italic"
+denshiParameterUse = "ctermfg=6 cterm=italic,underline"
+
+denshiEnumDefinition    = "ctermfg=5 cterm=italic"
+
+denshiBlockIdentifier = "ctermfg=8 cterm=italic"
+denshiClockOrReset = "ctermfg=4 cterm=bold"    #dark blue?
+denshiUndefined = "ctermfg=1 cterm=underline" #red
+denshiModuleIdentifier = "ctermfg=7 cterm=bold"
+denshiInstantiation =  "ctermfg=15 cterm=bold"
+
+denshiIdentifier = "ctermfg=2"   
+
+denshiSubroutineCall = "ctermfg=5"
+
+denshiSeparator = "ctermfg=1" #blue
+denshiKeyword = "ctermfg=7 cterm=bold"
+denshiAlways = "ctermfg=15 cterm=bold"
+denshiBeginEnd = "ctermfg=7 cterm=bold"
+denshiAssignmentSymbol = "ctermfg=15 cterm=bold"
+
+
+#TODO:
+#   Continuous Assignment should only be done into output port - anything else highlighted red
+#   input/output/inout  highlighted different colours   
+
+#TODO INPUT/OUTPUT/INOUT keywords to match into different groups, so that 
+#                        input/output/inout/whatever are highlighted in different colour
+[denshiModuleIdentifier]
+patterns = ["ModuleIdentifier Identifier SimpleIdentifier ^WhiteSpace Locate"]
+
+[denshiComment]
+patterns = ["WhiteSpace Comment Locate"]
+
+[denshiInstantiation]
+patterns = ["ModuleDeclarationAnsi ModuleInstantiation NameOfInstance ^WhiteSpace Locate"]
+
+[denshiClockOrReset]
+patterns = ["AlwaysConstruct ProceduralTimingControlStatement EventControl SimpleIdentifier ^WhiteSpace Locate"]
+
+[denshiAlways]
+patterns = ["AlwaysConstruct AlwaysKeyword Keyword ^WhiteSpace Locate"]
+
+[denshiAssignmentSymbol]                        #FIXME there is a bug with the matcher for the one below
+patterns = ["AlwaysConstruct NonblockingAssignment ^Expression Symbol ^WhiteSpace Locate"]
+
+
+
+
+#[denshiVariable]
+#patterns = [
+#    "VariableIdentifier ^WhiteSpace Locate",
+#    "PortIdentifier ^WhiteSpace Locate",
+#    "NamedPortConnectionIdentifier HierarchicalIdentifier ^WhiteSpace Locate",
+#    "VariableDeclAssignment HierarchicalIdentifier ^WhiteSpace Locate"
+#]
+#ifDefined = "denshiVariableDef"
+#orElse = "denshiIdentifierNotDefined"
+
+[denshiParameterDefinition]
+patterns = [
+    "ParameterIdentifier ^WhiteSpace Locate",
+]
+
+[denshiEnumDefinition]
+patterns = [
+    "EnumIdentifier ^WhiteSpace Locate",
+]
+
+[denshiIdentifier]
+patterns = [
+    "NamedParameterAssignment HierarchicalIdentifier ^WhiteSpace Locate",
+    "BitSelect HierarchicalIdentifier ^WhiteSpace Locate",
+    "ModuleInstantiation ListOfPortConnections HierarchicalIdentifier ^WhiteSpace Locate",
+    "VariableDeclAssignment HierarchicalIdentifier ^WhiteSpace Locate",
+    "AlwaysConstruct VariableDeclAssignment VariableIdentifier ^WhiteSpace Locate",
+    "HierarchicalVariableIdentifier HierarchicalIdentifier ^WhiteSpace Locate",
+    "NonblockingAssignment Expression HierarchicalIdentifier Identifier ^WhiteSpace Locate"
+]
+
+[denshiSubroutineCall]
+patterns = [
+    "SubroutineCallStatement SubroutineCall SystemTfIdentifier ^WhiteSpace Locate"
+]
+
+[denshiVariableDefinition]
+patterns = [
+    "ModuleOrGenerateItemDeclaration DataDeclaration DataDeclarationVariable VariableIdentifier ^WhiteSpace Locate"
+]
+
+
+#Generate 'for' identifier
+[denshiBlockIdentifier]
+patterns = [
+    "BlockIdentifier ^WhiteSpace Identifier ^WhiteSpace Locate",    #begin/end : <here>
+]
+
+#[denshiIdentifier]
+#patterns = [
+#    "TfIdentifier SimpleIdentifier ^WhiteSpace Locate",
+#    "GenvarIdentifier ^WhiteSpace Locate",
+#    "HierarchicalIdentifier ^WhiteSpace Locate"
+#]
+#ifDefined = "denshiVariable"
+#orElse = "denshiIdentifierNotDefined"
+#This means the block will only trigger if we have a 'denshiBlockIdentifer' that has the same text as this
+
+[denshiKeyword]
+patterns = [
+    "DataType Keyword ^WhiteSpace Locate",
+    "ParameterDeclarationParam Keyword ^WhiteSpace Locate",
+    "SourceText ^ParameterDeclarationParam ^AlwaysConstruct Keyword ^WhiteSpace Locate",
+    "StatementItem ConditionalStatement Keyword ^WhiteSpace Locate",
+    "EdgeIdentifier Keyword ^WhiteSpace Locate",
+    "SourceText AlwaysConstruct SeqBlock ^Statement Keyword ^WhiteSpace Locate"
+]
 
