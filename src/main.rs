@@ -36,6 +36,7 @@ enum Command {
     Parse,
     Debug,
     Colors,
+    List { line_num: i32 },
     Find { regex: String },
 }
 
@@ -52,16 +53,19 @@ fn main() -> Result<()> {
         Command::Colors {} => {
             let _result = print_colors(&args.config)?;
         }
+        Command::List { line_num } => {
+            let _result = print_all_on_line(&args.code, line_num)?;
+        }
     }
 
     Ok(())
 }
 
-fn find_regex(code_path: &str, input_filter: &str) -> Result<()> {
-    let code = &fs::read_to_string(code_path)?;
+fn print_all_on_line(code_path: &str, linenum: i32) -> Result<()> {
+    let code = preprocess(code_path)?;
 
     let (tree, _) = parse_sv_str(
-        code,
+        &code,
         PathBuf::from(code_path),
         &HashMap::new(),
         &Vec::<PathBuf>::new(),
@@ -70,7 +74,6 @@ fn find_regex(code_path: &str, input_filter: &str) -> Result<()> {
     )?;
 
     let mut breadcrumbs = vec![];
-
     for node_event in tree.into_iter().event() {
         match node_event {
             NodeEvent::Enter(ref node) => {
@@ -82,7 +85,40 @@ fn find_regex(code_path: &str, input_filter: &str) -> Result<()> {
         };
 
         if let NodeEvent::Enter(RefNode::Locate(locate)) = node_event {
-            let name = locate.str(code);
+            if locate.line == linenum as u32 {
+                println!("{} {breadcrumbs:?}", locate.str(&code));
+            }
+        }
+    }
+
+    Ok(())
+}
+
+fn find_regex(code_path: &str, input_filter: &str) -> Result<()> {
+    let code = preprocess(code_path)?;
+
+    let (tree, _) = parse_sv_str(
+        &code,
+        PathBuf::from(code_path),
+        &HashMap::new(),
+        &Vec::<PathBuf>::new(),
+        false,
+        false,
+    )?;
+
+    let mut breadcrumbs = vec![];
+    for node_event in tree.into_iter().event() {
+        match node_event {
+            NodeEvent::Enter(ref node) => {
+                breadcrumbs.push(node.to_string());
+            }
+            NodeEvent::Leave(ref _node) => {
+                breadcrumbs.pop();
+            }
+        };
+
+        if let NodeEvent::Enter(RefNode::Locate(locate)) = node_event {
+            let name = locate.str(&code);
             if name == input_filter {
                 println!(
                     "\nLine: {}\n{}",
@@ -107,7 +143,7 @@ fn print_colors(toml_path: &str) -> Result<()> {
     //SyntaxMatcher just to print the colors
 
     let parsed_toml = &fs::read_to_string(toml_path)?.parse::<Table>()?;
-    let mut matcher = SyntaxMatcher::from_toml(parsed_toml)?;
+    let matcher = SyntaxMatcher::from_toml(parsed_toml)?;
 
     for (color, string) in matcher.get_colors() {
         println!("{} {}", color, string);
@@ -116,7 +152,7 @@ fn print_colors(toml_path: &str) -> Result<()> {
     Ok(())
 }
 
-fn parse_groups(toml_path: &str, code_path: &str, debug: bool) -> Result<()> {
+fn preprocess(code_path: &str) -> Result<Rc<String>> {
     let mut code = fs::read_to_string(code_path)?;
 
     let mut backtick_indices = vec![];
@@ -148,7 +184,11 @@ fn parse_groups(toml_path: &str, code_path: &str, debug: bool) -> Result<()> {
     code = code.replace("(*", "/*");
     code = code.replace("*)", "*/");
 
-    let code = Rc::new(code);
+    Ok(Rc::new(code))
+}
+
+fn parse_groups(toml_path: &str, code_path: &str, debug: bool) -> Result<()> {
+    let code = preprocess(code_path)?;
 
     let result = parse_sv_str(
         &code,

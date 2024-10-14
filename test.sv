@@ -29,6 +29,28 @@ module eth_scrambler #(
     assign t = test[variable_notdef];
     assign t = test[someth];   
     //comment
+
+    struct packed {
+        enum_t enum_state_inner;
+        logic [3:0] something;
+    } struct_var;
+
+    typedef struct packed {
+        enum_t enum_state_inner;
+        logic [3:0] something;
+    } struct_type;
+    
+    struct_type something_else;
+
+    typedef union packed {
+        struct packed {
+            logic finner;
+        } f1;
+        struct_type struct_union;
+        logic f2;
+    } union_type_t;
+
+    union_type_t union_var;
     
     /*bl
     * ock_commen
@@ -48,6 +70,7 @@ module eth_scrambler #(
             test <= 1'b1;
         end else begin
             test <= ~test;
+            stru.field[index.b + 1'b1].field1 = 3;
         end
     end : named_always_ff
 

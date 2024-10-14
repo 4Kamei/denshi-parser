@@ -1,39 +1,62 @@
 #Matcthes can be inverted with ^ in front of the identifier
 
+#TODO Struct highlighting? struct.test[struct.something].something_else <= ????
 
-[colors]
-denshiComment = "ctermfg=8 cterm=italic"
-
-denshiVariableDefinition = "ctermfg=6"  
-
-denshiParameterDefinition    = "ctermfg=6 cterm=italic"
-denshiParameterUse = "ctermfg=6 cterm=italic,underline"
-
-denshiEnumDefinition    = "ctermfg=5 cterm=italic"
-
-denshiBlockIdentifier = "ctermfg=8 cterm=italic"
-denshiClockOrReset = "ctermfg=4 cterm=bold"    #dark blue?
-denshiUndefined = "ctermfg=1 cterm=underline" #red
-denshiModuleIdentifier = "ctermfg=7 cterm=bold"
-denshiInstantiation =  "ctermfg=15 cterm=bold"
-
-denshiIdentifier = "ctermfg=2"   
-
-denshiSubroutineCall = "ctermfg=5"
-
-denshiSeparator = "ctermfg=1" #blue
-denshiKeyword = "ctermfg=7 cterm=bold"
-denshiAlways = "ctermfg=15 cterm=bold"
-denshiBeginEnd = "ctermfg=7 cterm=bold"
-denshiAssignmentSymbol = "ctermfg=15 cterm=bold"
-
-
+#TODO look at all the signals defined inside of an 'always' block, and define 'clock groups'
+#   Also return 'always_regions' 
+#   Python checks if cursor is within an always_region -> highlights signals based on:
+#       If they belong to the current clock
+#       If they belong to the current clock + a different clock (Clocked in two separate domains)
+#       If they belong to a different clock. 
+#   
+#   Need to keep track of the always_ff block that each signal is assigned in. Use the 'locate' of the keyword?
+#       -> So, will need to 
+#
 #TODO:
 #   Continuous Assignment should only be done into output port - anything else highlighted red
 #   input/output/inout  highlighted different colours   
 
 #TODO INPUT/OUTPUT/INOUT keywords to match into different groups, so that 
 #                        input/output/inout/whatever are highlighted in different colour
+
+#TODO functions
+
+#TODO different colouring for types
+
+
+[colors]
+denshiComment = "ctermfg=8 guifg=NvimLightGray4 cterm=italic"
+denshiVariableDefinition = "ctermfg=6 guifg=NvimLightGreen"  
+
+denshiParameterDefinition    = "ctermfg=6 guifg=NvimLightGreen cterm=italic"
+denshiParameterUse = "ctermfg=6 guifg=NvimLightGreen cterm=italic,underline"
+
+denshiEnumDefinition    = "ctermfg=5 guifg=NvimLightBlue cterm=italic"
+
+denshiBlockIdentifier = "ctermfg=8 guifg=NvimLightGray4 cterm=italic"
+denshiClockOrReset = "ctermfg=4 guifg=MediumPurple1 cterm=bold"    #dark blue?
+denshiUndefined = "ctermfg=1 cterm=underline" #red
+denshiModuleIdentifier = "ctermfg=7 guifg=NvimLightGray2 cterm=bold"
+denshiInstantiation =  "ctermfg=15 cterm=bold"
+
+#denshiIdentifier = "ctermfg=2"   
+denshiIdentifier = "ctermfg=148 guifg=NvimLightYellow"
+
+denshiSubroutineCall = "ctermfg=5 guifg=NvimLightBlue"
+denshiSubroutineDefinition = "ctermfg=5 guifg=NvimLightBlue"
+
+denshiSeparator = "ctermfg=1" #blue
+denshiKeyword = "ctermfg=7 guifg=NvimLightGray2 cterm=bold"
+denshiAlways = "ctermfg=15 cterm=bold"
+denshiBeginEnd = "ctermfg=7 guifg=NvimLightGray2 cterm=bold"
+denshiAssignmentSymbol = "ctermfg=15 cterm=bold"
+
+denshiTypeIdentifier = "ctermfg=58 guifg=NvimGreen cterm=bold"
+denshiTypeIdentifierDefinition = "ctermfg=58 guifg=NvimGreen cterm=bold"
+
+
+
+
 [denshiModuleIdentifier]
 patterns = ["ModuleIdentifier Identifier SimpleIdentifier ^WhiteSpace Locate"]
 
@@ -52,8 +75,14 @@ patterns = ["AlwaysConstruct AlwaysKeyword Keyword ^WhiteSpace Locate"]
 [denshiAssignmentSymbol]                        #FIXME there is a bug with the matcher for the one below
 patterns = ["AlwaysConstruct NonblockingAssignment ^Expression Symbol ^WhiteSpace Locate"]
 
+[denshiTypeIdentifier]
+patterns = [
+    "NetTypeIdentifier ^WhiteSpace Locate",
+    "ModuleOrGenerateItemDeclaration StructUnionMember DataTypeOrVoid DataType PsClassIdentifier ClassIdentifier ^WhiteSpace Locate",
+]
 
-
+[denshiTypeIdentifierDefinition]
+patterns = ["TypeDeclaration TypeIdentifier ^WhiteSpace Locate"]
 
 #[denshiVariable]
 #patterns = [
@@ -83,7 +112,8 @@ patterns = [
     "VariableDeclAssignment HierarchicalIdentifier ^WhiteSpace Locate",
     "AlwaysConstruct VariableDeclAssignment VariableIdentifier ^WhiteSpace Locate",
     "HierarchicalVariableIdentifier HierarchicalIdentifier ^WhiteSpace Locate",
-    "NonblockingAssignment Expression HierarchicalIdentifier Identifier ^WhiteSpace Locate"
+    "NonblockingAssignment Expression HierarchicalIdentifier Identifier ^WhiteSpace Locate",
+    #"VariableDeclAssignment VariableIdentifier ^WhiteSpace Locate",
 ]
 
 [denshiSubroutineCall]
@@ -91,9 +121,16 @@ patterns = [
     "SubroutineCallStatement SubroutineCall SystemTfIdentifier ^WhiteSpace Locate"
 ]
 
+[denshiSubroutineDefinition]
+patterns = [
+    "FunctionBodyDeclaration FunctionIdentifier ^WhiteSpace Locate" 
+]
+
 [denshiVariableDefinition]
 patterns = [
-    "ModuleOrGenerateItemDeclaration DataDeclaration DataDeclarationVariable VariableIdentifier ^WhiteSpace Locate"
+    "ModuleOrGenerateItemDeclaration DataDeclaration DataDeclarationVariable VariableIdentifier ^WhiteSpace Locate",
+    "ModuleOrGenerateItemDeclaration TypeDeclaration TypeDeclarationDataType VariableIdentifier ^WhiteSpace Locate",
+    "ModuleOrGenerateItemDeclaration NetDeclaration NetDeclarationNetTypeIdentifier NetDeclAssignment NetIdentifier ^WhiteSpace Locate",
 ]
 
 
